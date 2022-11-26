@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local scene = composer.newScene() -- Creation for this scene
+local file = require("file")
 
 function scene:create( event )
  
@@ -89,19 +90,6 @@ function scene:create( event )
    creditsButton:addEventListener("tap", nextCredits);
    -------------------------------------------------------------------------------------------
  
-
-  
-
-
-
-
-
-   
-
-
-
-
-
 
     
 

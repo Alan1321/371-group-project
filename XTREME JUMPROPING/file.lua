@@ -7,7 +7,6 @@
 ----------------------------------------------------------------------------------
 
 local json = require( "json" )
-local csv = require("csv")
 
 --reads json file and returns a table
 function read(file_name)
@@ -34,7 +33,19 @@ function write(file_name, t)
     io.close(file)
 end
 
+--gets a table and prints it
+function print_json(data)
+    --@params
+    --data --> table structure
+    for k, v in pairs(data) do
+        for i, j in pairs(v) do
+           print(i, j)
+        end
+     end
+end
+
 return {
     read = read,
-    write = write
+    write = write,
+    print_json = print_json
 }
