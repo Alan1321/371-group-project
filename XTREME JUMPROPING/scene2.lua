@@ -35,10 +35,10 @@ function scene:create( event )
    sceneGroup:insert(image)
    physics.start()
 
-   scoreText = display.newText("Score: ", 400, 100, native.systemFontBold, 30)
+   scoreText = display.newText("Score: ", 450, 100, native.systemFontBold, 35)
    scoreText:setFillColor(100,0,0)
    sceneGroup:insert(scoreText)
-   scoreValue = display.newText(score, 500, 100, native.systemFontBold, 30)
+   scoreValue = display.newText(score, 550, 100, native.systemFontBold, 35)
    scoreValue:setFillColor(100,0,0)
    sceneGroup:insert(scoreValue)
 
@@ -167,23 +167,14 @@ function scene:show( event )
             scoreFinalValue:setFillColor(100,0,0)
             sceneGroup:insert(scoreFinalValue)
 
-            buttonBack2 = widget.newButton(
-            {
-             label = "Back to Main Menu",
-             onEvent = handleButtonEvent,
-             emboss = false,
-             shape = "roundedRect",
-             width = 400,
-             height = 80,
-             cornerRadius = 2,
-             fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
-             strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
-             strokeWidth = 4
-            }
-            )
+            buttonBack2 = display.newImageRect("backbutton.png", 400, 80)
             buttonBack2.x = display.contentCenterX
-            buttonBack2.y = 100
+            buttonBack2.y = display.contentCenterY - 200
             sceneGroup:insert(buttonBack2);
+            backText = display.newText ("Back To Main Menu", buttonBack2.x, buttonBack2.y, native.systemFontBold, 30)
+            backText:setFillColor(100, 100, 100)
+            sceneGroup:insert(backText)
+
 
             local options = {
                effect = "slideRight",
@@ -259,6 +250,8 @@ function scene:hide( event )
       scoreFinalText.text = " "
 
       scoreFinalValue.text = " "
+
+      backText.text = " "
 
       buttonBack2:removeSelf()
 
