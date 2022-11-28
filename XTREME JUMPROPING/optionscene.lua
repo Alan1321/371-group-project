@@ -14,10 +14,22 @@ local scene = composer.newScene()
 -- "scene:create()"
 function scene:create( event )
  
-   local sceneGroup = self.view
+  local sceneGroup = self.view
+
+  local music = display.newText ("Music:", display.contentCenterX, display.contentCenterY-100, native.systemFontBold, 50)
+  music:setFillColor (100,0,0)
+  sceneGroup:insert(music)
+
+  local sfx = display.newText ("Sound Effects:", display.contentCenterX-100, display.contentCenterY+100, native.systemFontBold, 50)
+  sfx:setFillColor (100,0,0)
+  sceneGroup:insert(sfx)
+
+  -- ADD CHECKBOXES FOR AUDIO
+
+
    local buttonBack2 = widget.newButton(
       {
-          label = "ButtonBack",
+          label = "Back to Main Menu",
           onEvent = handleButtonEvent,
           emboss = false,
           shape = "roundedRect",
@@ -35,10 +47,10 @@ function scene:create( event )
 
   local options = {
       effect = "slideDown",
-      time = 100
+      time = 500
   }
   local function back (event)
-      composer.gotoScene("scene1", {options});
+      composer.gotoScene("scene1", options);
   end
   buttonBack2:addEventListener("tap", back);    
 

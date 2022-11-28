@@ -13,11 +13,33 @@ local scene = composer.newScene()
  
 -- "scene:create()"
 function scene:create( event )
- 
-   local sceneGroup = self.view
+  local sceneGroup = self.view
+
+  local header = display.newText ("Game Creators:", display.contentCenterX, 200, native.systemFontBold, 50)
+  header:setFillColor (100,0,0)
+  sceneGroup:insert(header)
+  
+  local connor = display.newText ("Connor Bleisch", display.contentCenterX, 300, native.systemFontBold, 50)
+  connor:setFillColor (100,0,0)
+  sceneGroup:insert(connor)
+
+  local ryan = display.newText ("Ryan Burton", display.contentCenterX, 400, native.systemFontBold, 50)
+  ryan:setFillColor (100,0,0)
+  sceneGroup:insert(ryan)
+
+  local kennedy = display.newText ("Kennedy Kuria", display.contentCenterX, 500, native.systemFontBold, 50)
+  kennedy:setFillColor (100,0,0)
+  sceneGroup:insert(kennedy)
+
+  local alan = display.newText ("Alan Subedi", display.contentCenterX, 600, native.systemFontBold, 50)
+  alan:setFillColor (100,0,0)
+  sceneGroup:insert(alan)
+
+
+  
    local buttonBack1 = widget.newButton(
       {
-          label = "ButtonBack",
+          label = "Back to Main Menu",
           onEvent = handleButtonEvent,
           emboss = false,
           shape = "roundedRect",
@@ -35,10 +57,10 @@ function scene:create( event )
 
   local options = {
       effect = "slideDown",
-      time = 100
+      time = 500
   }
   local function back (event)
-      composer.gotoScene("scene1", {options});
+      composer.gotoScene("scene1", options);
   end
   buttonBack1:addEventListener("tap", back);    
 

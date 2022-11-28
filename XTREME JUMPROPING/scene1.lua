@@ -72,20 +72,20 @@ function scene:create( event )
    sceneGroup:insert(creditsText);
    -------------------------------------------------------------------------------------------
    local options1 = {
-      effect = "crossFade",
-      time = 100
+      effect = "slideUp",
+      time = 500
    }
    local function nextOptions (event)
-         composer.gotoScene("optionscene", {options1});
+         composer.gotoScene("optionscene", options1);
    end
    optionsButton:addEventListener("tap", nextOptions);    
    -------------------------------------------------------------------------------------------
    local options2 = {
-      effect = "crossFade",
-      time = 100
+      effect = "slideUp",
+      time = 500
    }
    local function nextCredits (event)
-         composer.gotoScene("creditscene", {options2});
+         composer.gotoScene("creditscene", options2);
    end
    creditsButton:addEventListener("tap", nextCredits);
    -------------------------------------------------------------------------------------------

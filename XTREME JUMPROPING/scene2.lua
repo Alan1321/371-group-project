@@ -52,65 +52,65 @@ function scene:create( event )
    ropeLength:setStrokeColor( 1, 1, 1)
    ropeGroup:insert(ropeLength)
 
-local rope = display.newCircle(0, -300, 10)
-rope.tag = "Obstacle"
-rope:setFillColor(1, 0, 0)
-rope.strokeWidth = 2
-rope:setStrokeColor( 1, 1, 1)
-physics.addBody(rope, "kinematic")
-ropeGroup:insert(rope)
-
-
-ropeGroup.x = display.contentCenterX
-ropeGroup.y = display.contentHeight-440
-
-sceneGroup:insert(ropeGroup)
-
-ropeGroup.speed = 0.01
-
-local options = {
+   local rope = display.newCircle(0, -300, 10)
+   rope.tag = "Obstacle"
+   rope:setFillColor(1, 0, 0)
+   rope.strokeWidth = 2
+   rope:setStrokeColor( 1, 1, 1)
+   physics.addBody(rope, "static", {radius = 10, isSensor=true})
+   ropeGroup:insert(rope)
    
-   frames = {
-   {x = 48, y = 0, width = 16, height = 16},
-   {x = 0, y = 80, width = 16, height = 15},
-   {x = 16, y = 80, width = 16, height = 15},
-   {x = 32, y = 80, width = 16, height = 15},
-   {x = 48, y = 80, width = 16, height = 15},
-   {x = 0, y = 0, width = 16, height = 16}
+
+   ropeGroup.x = display.contentCenterX
+   ropeGroup.y = display.contentHeight-440
+
+   sceneGroup:insert(ropeGroup)
+
+   ropeGroup.speed = 0.01
+
+   local options = {
+      
+      frames = {
+      {x = 48, y = 0, width = 16, height = 16},
+      {x = 0, y = 80, width = 16, height = 15},
+      {x = 16, y = 80, width = 16, height = 15},
+      {x = 32, y = 80, width = 16, height = 15},
+      {x = 48, y = 80, width = 16, height = 15},
+      {x = 0, y = 0, width = 16, height = 16}
+      }
    }
-}
 
-local sheet = graphics.newImageSheet("player.png", options)
+   local sheet = graphics.newImageSheet("player.png", options)
 
-local playerSeq = {
-   {name = "jump", start=1,count = 6, time=800, loopCount=1}
-}
+   local playerSeq = {
+      {name = "jump", start=1,count = 6, time=800, loopCount=1}
+   }
 
-player = display.newSprite(sheet, playerSeq)
+   player = display.newSprite(sheet, playerSeq)
 
-player:setSequence( "jump" )
+   player:setSequence( "jump" )
 
-player.x = display.contentCenterX
-player.y = display.contentHeight-180
+   player.x = display.contentCenterX
+   player.y = display.contentHeight-180
 
-player.xScale = 10
-player.yScale = 10
+   player.xScale = 10
+   player.yScale = 10
 
 
-physics.addBody(ground, "static")
+   physics.addBody(ground, "static")
 
-physics.addBody(player, "dynamic", {bounce=0, density=20, shape={-50, -70, 50, -70, 50, 70, -50, 70}})
+   physics.addBody(player, "dynamic", {bounce=0, density=20, shape={-50, -70, 50, -70, 50, 70, -50, 70}})
 
-sceneGroup:insert(player)
+   sceneGroup:insert(player)
 
-function jump(event)
-   if event.phase == "began" then
-      if player.y > 900 then
-         player:applyForce( 0, -250000, player.x, player.y)
-         player:play()
+   function jump(event)
+      if event.phase == "began" then
+         if player.y > 900 then
+            player:applyForce( 0, -250000, player.x, player.y)
+            player:play()
+         end
       end
    end
-end
 
  
 end
@@ -128,6 +128,7 @@ function scene:show( event )
 
       ropeGroup.rotation = 0
       player.rotation = 0
+      player:setLinearVelocity( 0, 0 )
       score = 0
       spawnTime = 5000
       player.x = display.contentCenterX
@@ -189,7 +190,7 @@ function scene:show( event )
                time = 500
             }
             local function back (event)
-               composer.gotoScene("scene1", {options});
+               composer.gotoScene("scene1", options);
             end
             buttonBack2:addEventListener("tap", back);  
          end
