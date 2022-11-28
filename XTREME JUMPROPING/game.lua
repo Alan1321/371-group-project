@@ -16,6 +16,8 @@ local scene = composer.newScene()
 local baseLevel = display.contentHeight - 270
 local baseFooting = display.contentHeight - 200
 local jump = 0
+local t1_rate
+local t2_rate
 local t
 local t2
 local t3
@@ -52,31 +54,18 @@ local function projectilee2()
     proj:setLinearVelocity( vx, vy )
 end
 
-local function projectilee3()
-    print("im in projectileee")
-    -- Create projectile object
-    local proj = display.newCircle( 10, 100, 24 )
-    proj:setFillColor( 0,0,1 )
-    proj.objType = "proj"
-    proj.gravityScale = 0
-    --sceneGroup:insert(proj)
-    -- Add physical body to object
-    physics.addBody( proj, { bounce=0.5, density=0.0, radius=24 } )
- 
-    -- Apply velocity values to object
-    local vx, vy = 300, -120
-    proj:setLinearVelocity( vx, vy )
-end
-
 function scene:create( event )
     
     physics.start()
     local sceneGroup = self.view
     
-    local bodyA = display.newCircle(display.contentWidth/2, display.contentHeight * .30, 10)
+    t1_rate = event.params.t1
+    t2_rate = event.params.t2
+
+    local bodyA = display.newCircle(display.contentWidth/2, display.contentHeight * .15, 10)
     bodyA:setFillColor(0,0,0)
 
-    local bodyB = display.newCircle(display.contentWidth/2, display.contentHeight * .05, 20)
+    local bodyB = display.newCircle(display.contentWidth/2, display.contentHeight * .015, 20)
     bodyB:setFillColor(.2,1,.5)
     bodyB.objType = "proj"
 
@@ -146,8 +135,6 @@ function scene:create( event )
     jumpButton:setStrokeColor( 1, 0, 0 )
     jumpButton:addEventListener("tap", touchAction)
     sceneGroup:insert(jumpButton)
-
-
     
 end
  
@@ -164,8 +151,8 @@ function scene:show( event )
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
-      t = timer.performWithDelay( 4000, projectilee, 0)
-      t2 = timer.performWithDelay( 8000, projectilee2, 0)
+      t = timer.performWithDelay( t1_rate, projectilee, 0)
+      t2 = timer.performWithDelay( t2_rate, projectilee2, 0)
     --   t3 = timer.performWithDelay(6000, projectilee3, 0)
    end
 end

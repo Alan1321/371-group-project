@@ -27,19 +27,17 @@ function scene:create( event )
    sceneGroup:insert(easy)
 
    -------------------------------------------------------------------------------------------
-
-   function buttonListener(event) 
+   function easyListener(event) 
       composer.gotoScene("game", {
          effect = "slideUp",
          time = 100,
          params = {
-            speed = 10;
+            t1 = 4000,
+            t2 = 8000
          } 
       });
    end
-
-   green:addEventListener("tap", buttonListener)
-
+   green:addEventListener("tap", easyListener)
    -------------------------------------------------------------------------------------------
    local yellow = display.newImage("yellowbutton.png")
    yellow.x = display.contentCenterX
@@ -49,6 +47,19 @@ function scene:create( event )
    local medium = display.newText ("MEDIUM", yellow.x, yellow.y, native.systemFontBold, 50)
    medium:setFillColor (100,100,100)
    sceneGroup:insert(medium)
+
+   -------------------------------------------------------------------------------------------
+   function mediumListener(event) 
+      composer.gotoScene("game", {
+         effect = "slideUp",
+         time = 100,
+         params = {
+            t1 = 3000,
+            t2 = 5000
+         } 
+      });
+   end
+   yellow:addEventListener("tap", mediumListener)
    -------------------------------------------------------------------------------------------
    local orange = display.newImage("orangebutton.png")
    orange.x = display.contentCenterX
@@ -59,6 +70,18 @@ function scene:create( event )
    orange:setFillColor (100,100,100)
    sceneGroup:insert(orange)
    -------------------------------------------------------------------------------------------
+   function hardListener(event) 
+      composer.gotoScene("game", {
+         effect = "slideUp",
+         time = 100,
+         params = {
+            t1 = 2000,
+            t2 = 4000
+         } 
+      });
+   end
+   orange:addEventListener("tap", hardListener)
+   -------------------------------------------------------------------------------------------
    local red = display.newImage("redbutton.png")
    red.x = display.contentCenterX
    red.y = display.contentCenterY + 300
@@ -67,6 +90,19 @@ function scene:create( event )
    local red = display.newText ("XTREME", red.x, red.y, native.systemFontBold, 50)
    red:setFillColor (100,100,100)
    sceneGroup:insert(red)
+
+   -------------------------------------------------------------------------------------------
+   function xtremeListener(event) 
+      composer.gotoScene("game", {
+         effect = "slideUp",
+         time = 100,
+         params = {
+            t1 = 1000,
+            t2 = 3000
+         } 
+      });
+   end
+   red:addEventListener("tap", xtremeListener)
    -------------------------------------------------------------------------------------------
    local optionsButton = display.newImageRect("options.png", 200, 80)
    optionsButton.x = display.contentCenterX - 200
