@@ -73,6 +73,20 @@ function scene:create( event )
     physics.start()
     local sceneGroup = self.view
     
+    local bodyA = display.newCircle(display.contentWidth/2, display.contentHeight * .30, 10)
+    bodyA:setFillColor(0,0,0)
+
+    local bodyB = display.newCircle(display.contentWidth/2, display.contentHeight * .05, 20)
+    bodyB:setFillColor(.2,1,.5)
+    bodyB.objType = "proj"
+
+    physics.addBody(bodyA, "static", {radius=10})
+    physics.addBody(bodyB, "dynamic", {density=0, friction=0, radius=20})
+
+    local joint = physics.newJoint("pivot", bodyA, bodyB, bodyA.x, bodyA.y)
+    joint.isMotorEnabled = true
+    joint.motorSpeed = -50
+    joint.maxMotorTorque = 100000
 
     local image = display.newImageRect("background.png", 640, 1140)
     image.x = display.contentCenterX
@@ -108,7 +122,7 @@ function scene:create( event )
             physics.pause()
             timer.pause(t)
             timer.pause(t2)
-            timer.pause(t3)
+            -- timer.pause(t3)
         end
     end
 
@@ -150,9 +164,9 @@ function scene:show( event )
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
-      t = timer.performWithDelay( 2000, projectilee, 0)
-      t2 = timer.performWithDelay(4000, projectilee2, 0)
-      t3 = timer.performWithDelay(6000, projectilee3, 0)
+      t = timer.performWithDelay( 4000, projectilee, 0)
+      t2 = timer.performWithDelay( 8000, projectilee2, 0)
+    --   t3 = timer.performWithDelay(6000, projectilee3, 0)
    end
 end
  
