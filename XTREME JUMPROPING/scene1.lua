@@ -33,25 +33,25 @@ function scene:create( event )
 
    local medium = display.newText ("MEDIUM", yellow.x, yellow.y, native.systemFontBold, 50)
    medium:setFillColor (100,100,100)
-   sceneGroup:insert(yellow)
+   sceneGroup:insert(medium)
    -------------------------------------------------------------------------------------------
    local orange = display.newImage("orangebutton.png")
    orange.x = display.contentCenterX
    orange.y = display.contentCenterY + 150
    sceneGroup:insert(orange)
 
-   local orange = display.newText ("HARD", orange.x, orange.y, native.systemFontBold, 50)
+   local hard = display.newText ("HARD", orange.x, orange.y, native.systemFontBold, 50)
    orange:setFillColor (100,100,100)
-   sceneGroup:insert(orange)
+   sceneGroup:insert(hard)
    -------------------------------------------------------------------------------------------
    local red = display.newImage("redbutton.png")
    red.x = display.contentCenterX
    red.y = display.contentCenterY + 300
    sceneGroup:insert(red)
 
-   local red = display.newText ("XTREME", red.x, red.y, native.systemFontBold, 50)
+   local extreme = display.newText ("XTREME", red.x, red.y, native.systemFontBold, 50)
    red:setFillColor (100,100,100)
-   sceneGroup:insert(red)
+   sceneGroup:insert(extreme)
    -------------------------------------------------------------------------------------------
    local optionsButton = display.newImageRect("options.png", 200, 80)
    optionsButton.x = display.contentCenterX - 200
@@ -89,8 +89,62 @@ function scene:create( event )
    end
    creditsButton:addEventListener("tap", nextCredits);
    -------------------------------------------------------------------------------------------
- 
-
+   local optionsEasy = {
+      effect = "slideLeft",
+      time = 500,
+      params = {
+        startSpeed = 0.01,
+        endSpeed = 3,
+        multiplier = 1
+      }
+   }
+   local function goEasy (event)
+         composer.gotoScene("scene2", optionsEasy);
+   end
+   green:addEventListener("tap", goEasy);
+   -------------------------------------------------------------------------------------------
+   local optionsMedium = {
+      effect = "slideLeft",
+      time = 500,
+      params = {
+        startSpeed = 3,
+        endSpeed = 7,
+        multiplier = 1.5
+      }
+   }
+   local function goMedium (event)
+         composer.gotoScene("scene2", optionsMedium);
+   end
+   yellow:addEventListener("tap", goMedium);
+   -------------------------------------------------------------------------------------------
+   local optionsHard = {
+      effect = "slideLeft",
+      time = 500,
+      params = {
+        startSpeed = 7,
+        endSpeed = 10,
+        multiplier = 2
+      }
+   }
+   local function goHard (event)
+         composer.gotoScene("scene2", optionsHard);
+   end
+   orange:addEventListener("tap", goHard);
+   -------------------------------------------------------------------------------------------
+   local optionsExtreme = {
+      effect = "slideLeft",
+      time = 500,
+      params = {
+        startSpeed = 10,
+        endSpeed = 10,
+        multiplier = 3
+      }
+   }
+   local function goExtreme (event)
+         composer.gotoScene("scene2", optionsExtreme);
+   end
+   red:addEventListener("tap", goExtreme);
+   -------------------------------------------------------------------------------------------
     
 
  end
