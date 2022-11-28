@@ -18,6 +18,7 @@ local baseFooting = display.contentHeight - 200
 local jump = 0
 local t
 local t2
+local t3
 
 local function projectilee()
     print("im in projectileee")
@@ -48,6 +49,22 @@ local function projectilee2()
  
     -- Apply velocity values to object
     local vx, vy = -300, -120
+    proj:setLinearVelocity( vx, vy )
+end
+
+local function projectilee3()
+    print("im in projectileee")
+    -- Create projectile object
+    local proj = display.newCircle( 10, 100, 24 )
+    proj:setFillColor( 1,0.2,0.2 )
+    proj.objType = "proj"
+    proj.gravityScale = 0
+    --sceneGroup:insert(proj)
+    -- Add physical body to object
+    physics.addBody( proj, { bounce=0.5, density=0.0, radius=24 } )
+ 
+    -- Apply velocity values to object
+    local vx, vy = 300, -120
     proj:setLinearVelocity( vx, vy )
 end
 
@@ -91,6 +108,7 @@ function scene:create( event )
             physics.pause()
             timer.pause(t)
             timer.pause(t2)
+            timer.pause(t3)
         end
     end
 
@@ -132,8 +150,9 @@ function scene:show( event )
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
-      t = timer.performWithDelay( 3000, projectilee, 0)
-      t2 = timer.performWithDelay(5000, projectilee2, 0)
+      t = timer.performWithDelay( 2000, projectilee, 0)
+      t2 = timer.performWithDelay(4000, projectilee2, 0)
+      t3 = timer.performWithDelay(6000, projectilee3, 0)
    end
 end
  
