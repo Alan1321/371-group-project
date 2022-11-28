@@ -8,23 +8,58 @@ local scene = composer.newScene()
 ---------------------------------------------------------------------------------
  
 -- local forward references should go here
- 
+
 ---------------------------------------------------------------------------------
- 
+
 -- "scene:create()"
 
 local baseLevel = display.contentHeight - 270
 local baseFooting = display.contentHeight - 200
 local jump = 0
+local t
+local t2
+
+local function projectilee()
+    print("im in projectileee")
+    -- Create projectile object
+    local proj = display.newCircle( 10, 800, 24 )
+    proj:setFillColor( 1,0.2,0.2 )
+    proj.objType = "proj"
+    proj.gravityScale = 0
+    --sceneGroup:insert(proj)
+    -- Add physical body to object
+    physics.addBody( proj, { bounce=0.5, density=0.0, radius=24 } )
+ 
+    -- Apply velocity values to object
+    local vx, vy = 300, -120
+    proj:setLinearVelocity( vx, vy )
+end
+
+local function projectilee2()
+    print("im in projectileee")
+    -- Create projectile object
+    local proj = display.newCircle( display.contentWidth - 50, 400, 24 )
+    proj:setFillColor( 1,0.2,0.2 )
+    proj.objType = "proj"
+    proj.gravityScale = 0
+    --sceneGroup:insert(proj)
+    -- Add physical body to object
+    physics.addBody( proj, { bounce=0.5, density=0.0, radius=24 } )
+ 
+    -- Apply velocity values to object
+    local vx, vy = -300, -120
+    proj:setLinearVelocity( vx, vy )
+end
 
 function scene:create( event )
- 
+    
     physics.start()
-   local sceneGroup = self.view
+    local sceneGroup = self.view
+    
 
-   local image = display.newImageRect("background.png", 640, 1140)
-   image.x = display.contentCenterX
-   image.y = display.contentCenterY
+    local image = display.newImageRect("background.png", 640, 1140)
+    image.x = display.contentCenterX
+    image.y = display.contentCenterY
    sceneGroup:insert(image)
 
    local ground = display.newRect( display.contentWidth/2, baseFooting, display.contentWidth, 1 )
@@ -48,9 +83,15 @@ function scene:create( event )
     player.sensorOverlaps = 0
 
     local function sensorCollide( self, event )
-        print('im in sensorCollide')
-        -- Confirm that the colliding elements are the foot sensor and a ground object  
-        jump = 0
+        if(event.other.objType == "ground") then
+            print("ground collision")
+            jump = 0
+        elseif event.other.objType == "proj" then
+            print('projectile collision')
+            physics.pause()
+            timer.pause(t)
+            timer.pause(t2)
+        end
     end
 
     player.collision = sensorCollide
@@ -67,13 +108,15 @@ function scene:create( event )
         end
     end
 
-    local myRectangle = display.newRect( display.contentWidth/2, display.contentHeight - 100, 50, 50 )
-    myRectangle.strokeWidth = 3
-    myRectangle:setFillColor( 0.5 )
-    myRectangle:setStrokeColor( 1, 0, 0 )
-    myRectangle:addEventListener("tap", touchAction)
-    sceneGroup:insert(myRectangle)
+    local jumpButton = display.newRect( display.contentWidth/2, display.contentHeight - 100, 50, 50 )
+    jumpButton.strokeWidth = 3
+    jumpButton:setFillColor( 0.5 )
+    jumpButton:setStrokeColor( 1, 0, 0 )
+    jumpButton:addEventListener("tap", touchAction)
+    sceneGroup:insert(jumpButton)
 
+
+    
 end
  
 -- "scene:show()"
@@ -84,10 +127,13 @@ function scene:show( event )
  
    if ( phase == "will" ) then
       -- Called when the scene is still off screen (but is about to come on screen).
+        
    elseif ( phase == "did" ) then
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
+      t = timer.performWithDelay( 3000, projectilee, 0)
+      t2 = timer.performWithDelay(5000, projectilee2, 0)
    end
 end
  
