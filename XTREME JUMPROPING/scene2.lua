@@ -104,8 +104,8 @@ function scene:create( event )
 
    function jump(event)
       if event.phase == "began" then
-         if player.y > 900 then
-            player:applyForce( 0, -250000, player.x, player.y)
+         if player.y > 850 then
+            player:applyForce( 0, -350000, player.x, player.y)
             player:play()
          end
       end
@@ -130,8 +130,14 @@ function scene:show( event )
       player:setLinearVelocity( 0, 0 )
       score = 0
       spawnTime = 5000
+      
+      rope.x = 300 * math.cos((-90) * math.pi / 180) + display.contentCenterX
+      rope.y = 300 * math.sin((-90) * math.pi / 180) + (display.contentHeight - 440)
+
       player.x = display.contentCenterX
       player.y = display.contentHeight - 180
+
+      
 
 
       ropeGroup.speed = params.startSpeed
@@ -173,10 +179,12 @@ function scene:show( event )
             backText:setFillColor(100, 100, 100)
             sceneGroup:insert(backText)
 
-
             local options = {
                effect = "slideRight",
-               time = 500
+               time = 500,
+               params = {
+
+               }
             }
             local function back (event)
                composer.gotoScene("scene1", options);
