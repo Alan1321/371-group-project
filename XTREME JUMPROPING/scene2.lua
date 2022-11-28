@@ -10,8 +10,6 @@ local scene = composer.newScene()
 local multiplier = 1
 local highScore = 0
 
-local endSpeed = 0
-
 local spawnTime = 5000
 
 local score = 0
@@ -44,21 +42,22 @@ function scene:create( event )
 
    local ground = display.newImage("ground.png", display.contentCenterX, display.contentHeight-60)
    sceneGroup:insert(ground)
+
    ropeGroup = display.newGroup( )
 
-   local ropeLength = display.newRect(0, -150, 20, 300)
+   ropeLength = display.newRect(0, -150, 20, 300)
    ropeLength:setFillColor(0.8, 0, 0)
    ropeLength.strokeWidth = 2
    ropeLength:setStrokeColor( 1, 1, 1)
    ropeGroup:insert(ropeLength)
 
-   local rope = display.newCircle(0, -300, 10)
+   rope = display.newCircle(0, -300, 10)
    rope.tag = "Obstacle"
    rope:setFillColor(1, 0, 0)
    rope.strokeWidth = 2
    rope:setStrokeColor( 1, 1, 1)
-   physics.addBody(rope, "static", {radius = 10, isSensor=true})
-   ropeGroup:insert(rope)
+   physics.addBody(rope, "static", {radius = 10})
+   sceneGroup:insert(rope)
    
 
    ropeGroup.x = display.contentCenterX
@@ -66,7 +65,7 @@ function scene:create( event )
 
    sceneGroup:insert(ropeGroup)
 
-   ropeGroup.speed = 0.01
+   ropeGroup.rotation = 0
 
    local options = {
       
@@ -97,7 +96,7 @@ function scene:create( event )
    player.yScale = 10
 
 
-   physics.addBody(ground, "static")
+   physics.addBody(ground, "static", {bounce = 0})
 
    physics.addBody(player, "dynamic", {bounce=0, density=20, shape={-50, -70, 50, -70, 50, 70, -50, 70}})
 
@@ -136,7 +135,6 @@ function scene:show( event )
 
 
       ropeGroup.speed = params.startSpeed
-      endSpeed = params.endSpeed
       multiplier = params.multiplier
       highScore = 0
 
@@ -197,10 +195,9 @@ function scene:show( event )
       end
 
       function ropeRotation ()
-         if ropeGroup.speed < endSpeed then
-            ropeGroup.speed = ropeGroup.speed+0.001
-         end
-         ropeGroup.rotation = ropeGroup.rotation+ropeGroup.speed
+         ropeGroup.rotation = ropeGroup.rotation + ropeGroup.speed
+         rope.x = 300 * math.cos((ropeGroup.rotation - 90) * math.pi / 180) + display.contentCenterX
+         rope.y = 300 * math.sin((ropeGroup.rotation - 90) * math.pi / 180) + (display.contentHeight - 440)
       end
 
       local function spawn()

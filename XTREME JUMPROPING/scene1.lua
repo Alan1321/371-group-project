@@ -93,8 +93,7 @@ function scene:create( event )
       effect = "slideLeft",
       time = 500,
       params = {
-        startSpeed = 0.01,
-        endSpeed = 3,
+        startSpeed = 1,
         multiplier = 1
       }
    }
@@ -108,7 +107,6 @@ function scene:create( event )
       time = 500,
       params = {
         startSpeed = 3,
-        endSpeed = 7,
         multiplier = 1.5
       }
    }
@@ -122,7 +120,6 @@ function scene:create( event )
       time = 500,
       params = {
         startSpeed = 7,
-        endSpeed = 10,
         multiplier = 2
       }
    }
@@ -136,7 +133,6 @@ function scene:create( event )
       time = 500,
       params = {
         startSpeed = 10,
-        endSpeed = 10,
         multiplier = 3
       }
    }
