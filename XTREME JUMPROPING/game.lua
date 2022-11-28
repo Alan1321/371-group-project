@@ -40,7 +40,7 @@ local function projectilee2()
     print("im in projectileee")
     -- Create projectile object
     local proj = display.newCircle( display.contentWidth - 50, 400, 24 )
-    proj:setFillColor( 1,0.2,0.2 )
+    proj:setFillColor( 0,1,0 )
     proj.objType = "proj"
     proj.gravityScale = 0
     --sceneGroup:insert(proj)
@@ -56,7 +56,7 @@ local function projectilee3()
     print("im in projectileee")
     -- Create projectile object
     local proj = display.newCircle( 10, 100, 24 )
-    proj:setFillColor( 1,0.2,0.2 )
+    proj:setFillColor( 0,0,1 )
     proj.objType = "proj"
     proj.gravityScale = 0
     --sceneGroup:insert(proj)
