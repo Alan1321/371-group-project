@@ -105,7 +105,13 @@ function scene:create( event )
    function jump(event)
       if event.phase == "began" then
          if player.y > 850 then
-            player:applyForce( 0, -350000, player.x, player.y)
+            player:applyForce( 0, -250000, player.x, player.y)
+            player:play()
+         end
+      end
+      if event.phase == "moved" then
+         if player.y > 850 then
+            player:applyForce( 0, -25000, player.x, player.y)
             player:play()
          end
       end
@@ -130,7 +136,7 @@ function scene:show( event )
       player:setLinearVelocity( 0, 0 )
       score = 0
       spawnTime = 5000
-      
+
       rope.x = 300 * math.cos((-90) * math.pi / 180) + display.contentCenterX
       rope.y = 300 * math.sin((-90) * math.pi / 180) + (display.contentHeight - 440)
 
