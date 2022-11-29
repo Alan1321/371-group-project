@@ -1,4 +1,5 @@
 local composer = require("composer")
+local file = require("file")
 local physics = require("physics")
 local Bird = require("Bird")
 local Cat = require("Cat")
