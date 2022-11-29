@@ -1,19 +1,20 @@
 local composer = require("composer")
-
 local physics = require("physics")
 local Bird = require("Bird")
 local Cat = require("Cat")
 local Dodgeball = require("Dodgeball")
-
 local scene = composer.newScene()
-
+-------------------------------------------------------------------------------------------
 local multiplier = 1
 local highScore = 0
-
 local spawnTime = 5000
-
 local score = 0
- 
+-------------------------------------------------------------------------------------------
+local crowSound = audio.loadSound("Crow.wav")
+local ballSound = audio.loadSound("DodgeballHit.wav") 
+local catSound = audio.loadSound("Meow.wav")
+local jumpSound = audio.loadSound("jumpSound.wav")
+local hitSound = audio.loadSound("hitSound.wav")
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
@@ -27,10 +28,12 @@ local score = 0
 function scene:create( event )
  
    local sceneGroup = self.view
+   -------------------------------------------------------------------------------------------
    local image = display.newImageRect("background.png", 640, 1140)
    image.x = display.contentCenterX
    image.y = display.contentCenterY
    sceneGroup:insert(image)
+   -------------------------------------------------------------------------------------------
    physics.start()
 
    scoreText = display.newText("Score: ", 450, 100, native.systemFontBold, 35)
@@ -66,7 +69,7 @@ function scene:create( event )
    sceneGroup:insert(ropeGroup)
 
    ropeGroup.rotation = 0
-
+   -------------------------------------------------------------------------------------------
    local options = {
       
       frames = {
@@ -106,12 +109,11 @@ function scene:create( event )
       if event.phase == "began" then
          if player.y > 900 then
             player:applyForce( 0, -250000, player.x, player.y)
+            audio.play(jumpSound)
             player:play()
          end
       end
    end
-
- 
 end
  
 -- "scene:show()"
@@ -149,6 +151,7 @@ function scene:show( event )
 
       function hitObstacle (event)
          if event.other.tag == "Obstacle" then
+            audio.play(hitSound)
             Runtime:removeEventListener( "touch", jump)
             player:removeEventListener( "collision", hitObstacle )
             timer.cancel( updateTimer )
@@ -190,23 +193,26 @@ function scene:show( event )
          rope.x = 300 * math.cos((ropeGroup.rotation - 90) * math.pi / 180) + display.contentCenterX
          rope.y = 300 * math.sin((ropeGroup.rotation - 90) * math.pi / 180) + (display.contentHeight - 440)
       end
-
+      -------------------------------------------------------------------------------------------
       local function spawn()
          local pick = math.random(1, 3)
          if pick == 1 then
             bd = Bird:new()
+            audio.play(crowSound)
             bd:spawn()
             bd:move()
          end
 
          if pick == 2 then
             ct = Cat:new()
+            audio.play(catSound)
             ct:spawn()
             ct:move()
          end
 
          if pick == 3 then
             db = Dodgeball:new()
+            audio.play(ballSound)
             db:spawn()
             db:move()
          end
