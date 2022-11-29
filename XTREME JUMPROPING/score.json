@@ -1,18 +1,1 @@
-[
-    {
-        "level":"easy",
-        "topscore":41
-    },
-    {
-        "level":"medium",
-        "topscore":1
-    },
-    {
-        "level":"hard",
-        "topscore":100
-    },
-    {
-        "level":"xtreme",
-        "topscore":50
-    }
-]
+[{"topscore":3250,"level":"easy"},{"topscore":14377.5,"level":"medium"},{"topscore":5650,"level":"hard"},{"topscore":5370,"level":"xtreme"}]

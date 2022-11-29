@@ -58,7 +58,7 @@ function get_score(score_type)
 end
 
 function set_score(score_type, score)
-    local data = read("score2.json")
+    local data = read("score.json")
     for k, v in pairs(data) do
         if v["level"] == score_type then
             v["topscore"] = score

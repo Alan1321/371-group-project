@@ -156,12 +156,7 @@ function scene:create( event )
     local phase = event.phase
   
     if ( phase == "will" ) then
-      print(file.get_score("easy"))
-      print(file.get_score("medium"))
-      print(file.get_score("hard"))
-      print(file.get_score("xtreme"))
-
-      file.set_score("medium", -890)
+      
     elseif ( phase == "did" ) then
        -- Called when the scene is now on screen.
        -- Insert code here to make the scene come alive.

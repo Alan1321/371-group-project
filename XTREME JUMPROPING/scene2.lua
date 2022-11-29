@@ -1,5 +1,5 @@
 local composer = require("composer")
-
+local file = require("file")
 local physics = require("physics")
 local Bird = require("Bird")
 local Cat = require("Cat")
@@ -39,7 +39,24 @@ function scene:create( event )
    scoreValue = display.newText(score, 550, 100, native.systemFontBold, 35)
    scoreValue:setFillColor(100,0,0)
    sceneGroup:insert(scoreValue)
-
+   -----------------------------------------------------------------------------------------------------------------
+   local topscoretext = display.newText("TopScore: ", 100, 100, native.systemFontBold, 35)
+   topscoretext:setFillColor(100,0,0)
+   sceneGroup:insert(topscoretext)
+   local score_type 
+   if multiplier == 1 then
+      score_type = "easy"
+   elseif multiplier == 1.5 then
+      score_type = "medium"
+   elseif multiplier == 2 then
+      score_type = "hard"
+   elseif multiplier == 3 then
+      score_type = "xtreme"
+   end
+   topscorevalue = display.newText(file.get_score(score_type), 250, 100, native.systemFontBold, 35)
+   topscorevalue:setFillColor(100,0,0)
+   sceneGroup:insert(topscorevalue)
+   -------------------------------------------------------------------------------------------------------------------
    local ground = display.newImage("ground.png", display.contentCenterX, display.contentHeight-60)
    sceneGroup:insert(ground)
 
@@ -150,6 +167,19 @@ function scene:show( event )
       multiplier = params.multiplier
       highScore = 0
 
+      local score_type 
+      if multiplier == 1 then
+         score_type = "easy"
+      elseif multiplier == 1.5 then
+         score_type = "medium"
+      elseif multiplier == 2 then
+         score_type = "hard"
+      elseif multiplier == 3 then
+         score_type = "xtreme"
+      end
+
+      topscorevalue.text = file.get_score(score_type)
+
    elseif ( phase == "did" ) then
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
@@ -184,6 +214,22 @@ function scene:show( event )
             backText = display.newText ("Back To Main Menu", buttonBack2.x, buttonBack2.y, native.systemFontBold, 30)
             backText:setFillColor(100, 100, 100)
             sceneGroup:insert(backText)
+
+            local score_type 
+            if multiplier == 1 then
+               score_type = "easy"
+            elseif multiplier == 1.5 then
+               score_type = "medium"
+            elseif multiplier == 2 then
+               score_type = "hard"
+            elseif multiplier == 3 then
+               score_type = "xtreme"
+            end
+
+            local prev_topscore = file.get_score(score_type)
+            if(score > prev_topscore) then
+               file.set_score(score_type, score)
+            end
 
             local options = {
                effect = "slideRight",
