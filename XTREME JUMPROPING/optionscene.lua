@@ -1,49 +1,91 @@
 local composer = require("composer")
-
 local scene = composer.newScene()
- 
----------------------------------------------------------------------------------
--- All code outside of the listener functions will only be executed ONCE
--- unless "composer.removeScene()" is called.
----------------------------------------------------------------------------------
- 
--- local forward references should go here
- 
----------------------------------------------------------------------------------
+local touchOn = false; 
+local themeSound = audio.loadSound("theme.wav")
  
 -- "scene:create()"
 function scene:create( event )
  
   local sceneGroup = self.view
-
-  local music = display.newText ("Music:", display.contentCenterX, display.contentCenterY-100, native.systemFontBold, 50)
-  music:setFillColor (100,0,0)
+  -------------------------------------------------------------------------------------------
+  local image = display.newImageRect("background.png", 640, 1140)
+  image.x = display.contentCenterX
+  image.y = display.contentCenterY
+  sceneGroup:insert(image)
+  -------------------------------------------------------------------------------------------
+  local music = display.newText ("Music", display.contentCenterX, display.contentCenterY - 250, native.systemFontBold, 100)
+  music:setFillColor (0,100,0)
   sceneGroup:insert(music)
+  -------------------------------------------------------------------------------------------
+  local circleButton = widget.newButton(
+   {
+       onEvent = handleButtonEvent,
+       emboss = false,
+       shape = "roundedRect",
+       width = 300,
+       height = 250,
+       cornerRadius = 20,
+       fillColor = {default={100,100,100}, over={0,0,0}},
+       strokeColor = {default={0,100,0}, over={0,0,0}},
+       strokeWidth = 5
+   }
+)
+  circleButton.x = display.contentCenterX
+  circleButton.y = display.contentCenterY
+  sceneGroup:insert(circleButton)
+  -------------------------------------------------------------------------------------------
+  local function onSwitchPressOn(event)
+      touchOn = true;
+      audio.play(themeSound)
+   end
+   local function onSwitchPressOff(event)
+      touchOn = false;
+      audio.pause(themeSound)
+   end
 
-  local sfx = display.newText ("Sound Effects:", display.contentCenterX-100, display.contentCenterY+100, native.systemFontBold, 50)
-  sfx:setFillColor (100,0,0)
-  sceneGroup:insert(sfx)
-
-  -- ADD CHECKBOXES FOR AUDIO
-
-
-   local buttonBack2 = widget.newButton(
+   --Touch button
+   local onButton = widget.newSwitch(
       {
-          label = "Back to Main Menu",
-          onEvent = handleButtonEvent,
-          emboss = false,
-          shape = "roundedRect",
-          width = 400,
-          height = 80,
-          cornerRadius = 2,
-          fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
-          strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
-          strokeWidth = 4
+         x = display.contentCenterX - 80,
+         y = display.contentCenterY - 50,
+         style = "radio",
+         id = "onButton",
+         initialSwitchState = false,
+         onPress = onSwitchPressOn
+
       }
-  )
-  buttonBack2.x = display.contentCenterX
-  buttonBack2.y = 100
-  sceneGroup:insert(buttonBack2);
+   )
+   onButton.width = 100
+   onButton.height = 100
+   sceneGroup:insert(onButton)
+   local offButton = widget.newSwitch(
+      {
+         x = display.contentCenterX - 80,
+         y = display.contentCenterY + 50,
+         style = "radio",
+         id = "offButton",
+         initialSwitchState = false,
+         onPress = onSwitchPressOff
+      }
+   )
+   offButton.width = 100
+   offButton.height = 100
+   sceneGroup:insert(offButton)
+   -------------------------------------------------------------------------------------------
+   local onText = display.newText ("On", onButton.x + 120, onButton.y, native.systemFont, 70);
+   onText:setFillColor (0,100,0);
+   sceneGroup:insert(onText)
+   local offText = display.newText ("Off", offButton.x + 120, offButton.y, native.systemFont, 70); 
+   offText:setFillColor (0,100,0); 
+   sceneGroup:insert(offText)
+   -------------------------------------------------------------------------------------------
+   buttonBack2 = display.newImageRect("backbutton.png", 400, 80)
+   buttonBack2.x = display.contentCenterX
+   buttonBack2.y = 100
+   sceneGroup:insert(buttonBack2);
+   backText = display.newText ("Back To Main Menu", buttonBack2.x, buttonBack2.y, native.systemFontBold, 30)
+   backText:setFillColor(100, 100, 100)
+   sceneGroup:insert(backText)
 
   local options = {
       effect = "slideDown",
