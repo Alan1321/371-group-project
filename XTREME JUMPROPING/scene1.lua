@@ -2,6 +2,10 @@ local composer = require( "composer" )
 local scene = composer.newScene() -- Creation for this scene
 local file = require("file")
 
+local medium = false
+local hard = false
+local xtreme = false
+
 function scene:create( event )
  
    local sceneGroup = self.view
@@ -152,7 +156,12 @@ function scene:create( event )
     local phase = event.phase
   
     if ( phase == "will" ) then
-       -- Called when the scene is still off screen (but is about to come on screen).
+      print(file.get_score("easy"))
+      print(file.get_score("medium"))
+      print(file.get_score("hard"))
+      print(file.get_score("xtreme"))
+
+      file.set_score("medium", -890)
     elseif ( phase == "did" ) then
        -- Called when the scene is now on screen.
        -- Insert code here to make the scene come alive.

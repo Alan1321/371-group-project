@@ -1,0 +1,18 @@
+[
+    {
+        "level":"easy",
+        "topscore":41
+    },
+    {
+        "level":"medium",
+        "topscore":1
+    },
+    {
+        "level":"hard",
+        "topscore":100
+    },
+    {
+        "level":"xtreme",
+        "topscore":50
+    }
+]
