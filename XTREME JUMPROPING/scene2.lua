@@ -128,14 +128,14 @@ function scene:create( event )
    function jump(event)
       if event.phase == "began" then
          if player.y > 850 then
-            player:applyForce( 0, -65000, player.x, player.y)
+            player:applyForce( 0, -60000, player.x, player.y)
             audio.play(jumpSound)
             player:play()
          end
       end
       if event.phase == "moved" then
          if player.y > 850 then
-            player:applyForce( 0, -4000, player.x, player.y)
+            player:applyForce( 0, -5000, player.x, player.y)
             player:play()
          end
       end
