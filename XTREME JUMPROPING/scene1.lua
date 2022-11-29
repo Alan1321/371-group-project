@@ -44,7 +44,7 @@ function scene:create( event )
    yellow.y = display.contentCenterY
    sceneGroup:insert(yellow)
 
-   disable_yellow = display.newImage("disabled.png")
+   disable_yellow = display.newImage("disabled2.png")
    disable_yellow.x = display.contentCenterX
    disable_yellow.y = display.contentCenterY
    disable_yellow:addEventListener("tap", disable_listener)
@@ -61,7 +61,7 @@ function scene:create( event )
    orange.y = display.contentCenterY + 150
    sceneGroup:insert(orange)
 
-   disable_orange = display.newImage("disabled.png")
+   disable_orange = display.newImage("disabled2.png")
    disable_orange.x = display.contentCenterX
    disable_orange.y = display.contentCenterY + 150
    disable_orange:addEventListener("tap", disable_listener)
@@ -78,7 +78,7 @@ function scene:create( event )
    red.y = display.contentCenterY + 300
    sceneGroup:insert(red)
 
-   disable_red = display.newImage("disabled.png")
+   disable_red = display.newImage("disabled2.png")
    disable_red.x = display.contentCenterX
    disable_red.y = display.contentCenterY + 300
    disable_red:addEventListener("tap", disable_listener)
