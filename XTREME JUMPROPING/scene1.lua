@@ -7,8 +7,17 @@ local hard = false
 local xtreme = false
 
 function scene:create( event )
- 
+   
    local sceneGroup = self.view
+   
+   local easy_score = file.get_score("easy")
+   local medium_score = file.get_score("medium")
+   local hard_score = file.get_score("hard")
+   local xtreme_score = file.get_score("xtreme")   
+   local function disable_listener()
+      return true
+   end
+
    local image = display.newImageRect("background.png", 640, 1140)
    image.x = display.contentCenterX
    image.y = display.contentCenterY
@@ -35,6 +44,14 @@ function scene:create( event )
    yellow.y = display.contentCenterY
    sceneGroup:insert(yellow)
 
+   disable_yellow = display.newImage("disabled.png")
+   disable_yellow.x = display.contentCenterX
+   disable_yellow.y = display.contentCenterY
+   disable_yellow:addEventListener("tap", disable_listener)
+   sceneGroup:insert(disable_yellow)
+   -- disable_yellow:removeSelf()
+   -- disable_yellow = nil
+
    local medium = display.newText ("MEDIUM", yellow.x, yellow.y, native.systemFontBold, 50)
    medium:setFillColor (100,100,100)
    sceneGroup:insert(medium)
@@ -44,6 +61,14 @@ function scene:create( event )
    orange.y = display.contentCenterY + 150
    sceneGroup:insert(orange)
 
+   disable_orange = display.newImage("disabled.png")
+   disable_orange.x = display.contentCenterX
+   disable_orange.y = display.contentCenterY + 150
+   disable_orange:addEventListener("tap", disable_listener)
+   sceneGroup:insert(disable_orange)
+   -- disable_orange:removeSelf()
+   -- disable_orange = nil
+
    local hard = display.newText ("HARD", orange.x, orange.y, native.systemFontBold, 50)
    orange:setFillColor (100,100,100)
    sceneGroup:insert(hard)
@@ -52,6 +77,14 @@ function scene:create( event )
    red.x = display.contentCenterX
    red.y = display.contentCenterY + 300
    sceneGroup:insert(red)
+
+   disable_red = display.newImage("disabled.png")
+   disable_red.x = display.contentCenterX
+   disable_red.y = display.contentCenterY + 300
+   disable_red:addEventListener("tap", disable_listener)
+   sceneGroup:insert(disable_red)
+   -- disable_red:removeSelf()
+   -- disable_red = nil
 
    local extreme = display.newText ("XTREME", red.x, red.y, native.systemFontBold, 50)
    red:setFillColor (100,100,100)
@@ -145,7 +178,6 @@ function scene:create( event )
    end
    red:addEventListener("tap", goExtreme);
    -------------------------------------------------------------------------------------------
-    
 
  end
   
@@ -156,7 +188,29 @@ function scene:create( event )
     local phase = event.phase
   
     if ( phase == "will" ) then
-      
+      local easy_score = file.get_score("easy")
+      local medium_score = file.get_score("medium")
+      local hard_score = file.get_score("hard")
+      local xtreme_score = file.get_score("xtreme") 
+
+      if easy_score >= 10000 then
+         if disable_yellow ~= nil then            
+            disable_yellow:removeSelf()
+            disable_yellow = nil
+         end
+      end
+      if medium_score >= 10000 then
+         if disable_orange ~= nil then            
+            disable_orange:removeSelf()
+            disable_orange = nil
+         end
+      end
+      if hard_score >= 10000 then
+         if disable_red ~= nil then            
+            disable_red:removeSelf()
+            disable_red = nil
+         end
+      end
     elseif ( phase == "did" ) then
        -- Called when the scene is now on screen.
        -- Insert code here to make the scene come alive.
