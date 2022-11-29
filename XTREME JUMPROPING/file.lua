@@ -38,14 +38,39 @@ function print_json(data)
     --@params
     --data --> table structure
     for k, v in pairs(data) do
-        for i, j in pairs(v) do
-           print(i, j)
-        end
+        print(v["level"])
+        -- for i, j in pairs(v) do
+        --    print("i:", i)
+        --    print("j:", j)
+        -- end
      end
+end
+
+function get_score(score_type)
+    local data = read("score.json")
+    local score
+    for k, v in pairs(data) do
+        if v["level"] == score_type then
+            score = v["topscore"]
+        end
+    end
+    return score
+end
+
+function set_score(score_type, score)
+    local data = read("score.json")
+    for k, v in pairs(data) do
+        if v["level"] == score_type then
+            v["topscore"] = score
+        end
+    end
+    write("score.json", data)
 end
 
 return {
     read = read,
     write = write,
-    print_json = print_json
+    print_json = print_json,
+    get_score = get_score,
+    set_score = set_score
 }

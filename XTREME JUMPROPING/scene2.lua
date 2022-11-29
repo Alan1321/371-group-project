@@ -42,7 +42,24 @@ function scene:create( event )
    scoreValue = display.newText(score, 550, 100, native.systemFontBold, 35)
    scoreValue:setFillColor(100,0,0)
    sceneGroup:insert(scoreValue)
-
+   -----------------------------------------------------------------------------------------------------------------
+   local topscoretext = display.newText("TopScore: ", 100, 100, native.systemFontBold, 35)
+   topscoretext:setFillColor(100,0,0)
+   sceneGroup:insert(topscoretext)
+   local score_type 
+   if multiplier == 1 then
+      score_type = "easy"
+   elseif multiplier == 1.5 then
+      score_type = "medium"
+   elseif multiplier == 2 then
+      score_type = "hard"
+   elseif multiplier == 3 then
+      score_type = "xtreme"
+   end
+   topscorevalue = display.newText(file.get_score(score_type), 250, 100, native.systemFontBold, 35)
+   topscorevalue:setFillColor(100,0,0)
+   sceneGroup:insert(topscorevalue)
+   -------------------------------------------------------------------------------------------------------------------
    local ground = display.newImage("ground.png", display.contentCenterX, display.contentHeight-60)
    sceneGroup:insert(ground)
 
@@ -107,9 +124,15 @@ function scene:create( event )
 
    function jump(event)
       if event.phase == "began" then
-         if player.y > 900 then
+         if player.y > 850 then
             player:applyForce( 0, -250000, player.x, player.y)
             audio.play(jumpSound)
+            player:play()
+         end
+      end
+      if event.phase == "moved" then
+         if player.y > 850 then
+            player:applyForce( 0, -25000, player.x, player.y)
             player:play()
          end
       end
@@ -132,13 +155,32 @@ function scene:show( event )
       player:setLinearVelocity( 0, 0 )
       score = 0
       spawnTime = 5000
+
+      rope.x = 300 * math.cos((-90) * math.pi / 180) + display.contentCenterX
+      rope.y = 300 * math.sin((-90) * math.pi / 180) + (display.contentHeight - 440)
+
       player.x = display.contentCenterX
       player.y = display.contentHeight - 180
+
+      
 
 
       ropeGroup.speed = params.startSpeed
       multiplier = params.multiplier
       highScore = 0
+
+      local score_type 
+      if multiplier == 1 then
+         score_type = "easy"
+      elseif multiplier == 1.5 then
+         score_type = "medium"
+      elseif multiplier == 2 then
+         score_type = "hard"
+      elseif multiplier == 3 then
+         score_type = "xtreme"
+      end
+
+      topscorevalue.text = file.get_score(score_type)
 
    elseif ( phase == "did" ) then
       -- Called when the scene is now on screen.
@@ -176,10 +218,28 @@ function scene:show( event )
             backText:setFillColor(100, 100, 100)
             sceneGroup:insert(backText)
 
+            local score_type 
+            if multiplier == 1 then
+               score_type = "easy"
+            elseif multiplier == 1.5 then
+               score_type = "medium"
+            elseif multiplier == 2 then
+               score_type = "hard"
+            elseif multiplier == 3 then
+               score_type = "xtreme"
+            end
+
+            local prev_topscore = file.get_score(score_type)
+            if(score > prev_topscore) then
+               file.set_score(score_type, score)
+            end
 
             local options = {
                effect = "slideRight",
-               time = 500
+               time = 500,
+               params = {
+
+               }
             }
             local function back (event)
                composer.gotoScene("scene1", options);
