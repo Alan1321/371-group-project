@@ -10,6 +10,11 @@ function scene:create( event )
    
    local sceneGroup = self.view
    
+   file.set_score("easy", 0)
+   file.set_score("medium", 0)
+   file.set_score("hard", 0)
+   file.set_score("xtreme", 0)
+
    local easy_score = file.get_score("easy")
    local medium_score = file.get_score("medium")
    local hard_score = file.get_score("hard")

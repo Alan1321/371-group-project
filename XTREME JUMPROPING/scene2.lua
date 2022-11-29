@@ -34,6 +34,8 @@ function scene:create( event )
    image.y = display.contentCenterY
    sceneGroup:insert(image)
    -------------------------------------------------------------------------------------------
+   physics.setScale( 50 )
+
    physics.start()
 
    scoreText = display.newText("Score: ", 450, 100, native.systemFontBold, 35)
@@ -43,7 +45,7 @@ function scene:create( event )
    scoreValue:setFillColor(100,0,0)
    sceneGroup:insert(scoreValue)
    -----------------------------------------------------------------------------------------------------------------
-   local topscoretext = display.newText("TopScore: ", 100, 100, native.systemFontBold, 35)
+   local topscoretext = display.newText("High Score: ", 100, 100, native.systemFontBold, 35)
    topscoretext:setFillColor(100,0,0)
    sceneGroup:insert(topscoretext)
    local score_type 
@@ -116,7 +118,7 @@ function scene:create( event )
    player.yScale = 10
 
 
-   physics.addBody(ground, "static", {bounce = 0})
+   physics.addBody(ground, "static", {bounce = 0, friction=0.3})
 
    physics.addBody(player, "dynamic", {bounce=0, density=20, shape={-50, -70, 50, -70, 50, 70, -50, 70}})
 
@@ -125,14 +127,14 @@ function scene:create( event )
    function jump(event)
       if event.phase == "began" then
          if player.y > 850 then
-            player:applyForce( 0, -250000, player.x, player.y)
+            player:applyForce( 0, -65000, player.x, player.y)
             audio.play(jumpSound)
             player:play()
          end
       end
       if event.phase == "moved" then
          if player.y > 850 then
-            player:applyForce( 0, -25000, player.x, player.y)
+            player:applyForce( 0, -4000, player.x, player.y)
             player:play()
          end
       end
