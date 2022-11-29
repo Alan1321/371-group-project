@@ -34,6 +34,9 @@ function scene:create( event )
    local chooseLevel = display.newText ("Choose Difficulty Level Below", 320, 200, native.systemFontBold, 35)
    chooseLevel:setFillColor (0,0,0)
    sceneGroup:insert(chooseLevel)
+   local unlockLevel = display.newText ("Score 10,000 To Unlock Next Level!", 320, 250, native.systemFontBold, 25)
+   unlockLevel:setFillColor (0,0,0)
+   sceneGroup:insert(unlockLevel)
    -------------------------------------------------------------------------------------------
    local green = display.newImage("greenbutton.png")
    green.x = display.contentCenterX
